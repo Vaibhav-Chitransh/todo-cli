@@ -45,7 +45,7 @@ npm install
 
 ## Setup CLI Command
 
-Add this inside your terminal so you don't have to write node index.js again and again:
+Add this inside your terminal so you don't have to write `node index.js` again and again:
 
 ```bash
 alias todo="node index.js"
