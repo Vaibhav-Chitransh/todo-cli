@@ -1,7 +1,10 @@
-const {program} = require('commander');
-const uniqid = require('uniqid');
-const moment = require('moment');
-const fs = require('fs');
+import {Command} from 'commander';
+import uniqid from 'uniqid';
+import moment from 'moment';
+import chalk from 'chalk';
+import fs from 'fs';
+
+const program = new Command();
 
 const FILE_NAME = 'todos.json';
 if(!fs.existsSync(FILE_NAME)) {
@@ -36,7 +39,7 @@ program.command('add').description('add a new todo').argument('<title>', 'title 
     todos.push(newTodo);
 
     fs.writeFileSync(FILE_NAME, JSON.stringify(todos, null, 2));
-    console.log(`Todo with id: ${todoId} is successfully added.`);
+    console.log(chalk.green(`Todo with id: ${chalk.magenta.bold(todoId)} is successfully added.`));
 });
 
 program.command('edit').description('edit a todo title').argument('<id>', 'id of the todo you want to edit').argument('<updatedTitle>', 'give the updated title for the todo').action((id, updatedTitle) => {
@@ -48,7 +51,7 @@ program.command('edit').description('edit a todo title').argument('<id>', 'id of
     });
 
     fs.writeFileSync(FILE_NAME, JSON.stringify(todos, null, 2));
-    console.log(`Todo with id: ${id} is successfully updated. New title: ${updatedTitle}`);
+    console.log(chalk.yellow(`Todo with id: ${chalk.magenta.bold(id)} is successfully updated. New title: ${chalk.magenta.bold(updatedTitle)}`));
 });
 
 program.command('delete').description('delete a todo').argument('<id>', 'id of the todo you want to delete').action((id) => {
@@ -58,7 +61,7 @@ program.command('delete').description('delete a todo').argument('<id>', 'id of t
     const updatedTodos = todos.filter((todo) => id != todo.id);
 
     fs.writeFileSync(FILE_NAME, JSON.stringify(updatedTodos, null, 2));
-    console.log(`Todo with id: ${id} is successfully deleted.`);
+    console.log(chalk.red(`Todo with id: ${chalk.magenta.bold(id)} is successfully deleted.`));
 });
 
 program.command('mark').description('mark todo as completed').argument('<id>', 'id of the todo you want to mark as completed').action((id) => {
@@ -70,7 +73,7 @@ program.command('mark').description('mark todo as completed').argument('<id>', '
     });
 
     fs.writeFileSync(FILE_NAME, JSON.stringify(todos, null, 2));
-    console.log(`Todo with id: ${id} is marked as completed.`);
+    console.log(`Todo with id: ${chalk.magenta.bold(id)} is marked as completed.`);
 });
 
 program.command('display').description('get all todos').action(() => {
