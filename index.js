@@ -59,6 +59,18 @@ program.command('delete').description('delete a todo').argument('<id>', 'id of t
 
     fs.writeFileSync(FILE_NAME, JSON.stringify(updatedTodos, null, 2));
     console.log(`Todo with id: ${id} is successfully deleted.`);
-})
+});
+
+program.command('mark').description('mark todo as completed').argument('<id>', 'id of the todo you want to mark as completed').action((id) => {
+    const data = fs.readFileSync(FILE_NAME, 'utf-8');
+    const todos = JSON.parse(data);
+
+    todos.map((todo) => {
+        if(todo.id == id) todo.isCompleted = true;
+    });
+
+    fs.writeFileSync(FILE_NAME, JSON.stringify(todos, null, 2));
+    console.log(`Todo with id: ${id} is marked as completed.`);
+});
 
 program.parse()
