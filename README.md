@@ -111,6 +111,18 @@ todo mark <id>
 todo display
 ```
 
+## Example Output
+
+```bash
+Displaying all todos-----
+------------------------------------------
+Id: qwerty123
+Title: Learn Node.js
+IsCompleted: false
+CreatedAt: 27th May 2026
+------------------------------------------
+```
+
 ---
 
 ## Todo Structure
@@ -138,15 +150,3 @@ Each todo is stored in the following format:
 ```
 
 ---
-
-## Example Output
-
-```bash
-Displaying all todos-----
-------------------------------------------
-Id: qwerty123
-Title: Learn Node.js
-IsCompleted: false
-CreatedAt: 27th May 2026
-------------------------------------------
-```
