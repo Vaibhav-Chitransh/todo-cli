@@ -46,10 +46,19 @@ program.command('edit').description('edit a todo title').argument('<id>', 'id of
     todos.map((todo) => {
         if(id == todo.id) todo.title = updatedTitle;
     });
-    console.log(todos);
 
     fs.writeFileSync(FILE_NAME, JSON.stringify(todos, null, 2));
     console.log(`Todo with id: ${id} is successfully updated. New title: ${updatedTitle}`);
 });
+
+program.command('delete').description('delete a todo').argument('<id>', 'id of the todo you want to delete').action((id) => {
+    const data = fs.readFileSync(FILE_NAME, 'utf-8');
+    const todos = JSON.parse(data);
+
+    const updatedTodos = todos.filter((todo) => id != todo.id);
+
+    fs.writeFileSync(FILE_NAME, JSON.stringify(updatedTodos, null, 2));
+    console.log(`Todo with id: ${id} is successfully deleted.`);
+})
 
 program.parse()
