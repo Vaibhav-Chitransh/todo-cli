@@ -9,8 +9,8 @@ if(!fs.existsSync(FILE_NAME)) {
 }
 
 program
-  .name('todo cli')
-  .description('CLI to add, edit, delete your todos')
+  .name('Todo CLI')
+  .description('CLI based todo app')
   .version('1.0.0');
 
 
@@ -72,5 +72,20 @@ program.command('mark').description('mark todo as completed').argument('<id>', '
     fs.writeFileSync(FILE_NAME, JSON.stringify(todos, null, 2));
     console.log(`Todo with id: ${id} is marked as completed.`);
 });
+
+program.command('display').description('get all todos').action(() => {
+    const data = fs.readFileSync(FILE_NAME, 'utf-8');
+    const todos = JSON.parse(data);
+
+    console.log(`Displaying all todos-----`);
+    console.log(`------------------------------------------`);
+    for(let i=0; i<todos.length; i++) {
+        console.log(`Id: ${todos[i].id}`);
+        console.log(`Title: ${todos[i].title}`);
+        console.log(`IsCompleted: ${todos[i].isCompleted}`);
+        console.log(`CreatedAt: ${todos[i].createdAt}`);
+        console.log(`------------------------------------------`);
+    }
+})
 
 program.parse()
